@@ -35,21 +35,46 @@ SATELLITE_URLS = {
     "R4UAB": "https://r4uab.ru/satonline.txt"    
 }    
     
-def parse_csv_line(line):    
-    """解析 CSV 行，返回 OrbitalData - 参考 DataParser.parseCSV() [2](#2-1) """    
-    values = line.split(",")    
-    if len(values) < 15:    
-        return None    
+def parse_csv_line(line):  
+    """解析 CSV 行，返回 OrbitalData"""  
+    values = line.split(",")  
+    if len(values) < 18:  # CSV 实际有 18 个字段  
+        return None  
         
-    try:    
-        name = values[0]    
-        catnum = int(values[11])    
-        # 提取 TLE 行信息    
-        tle_line1 = f"1 {catnum:5d}U {values[1]} {values[2][:8]}{values[2][9:16].replace('.', '')}  .00000000  00000-0  00000+0 0  0000"    
-        tle_line2 = f"2 {catnum:5d} {values[5]:8.4f} {values[6]:8.4f} {values[4]:7.7f} {values[7]:8.4f} {values[8]:8.4f} {values[3]:11.8f}00000"    
-        return name, tle_line1, tle_line2    
-    except:    
-        return None    
+    try:  
+        name = values[0]  
+        catnum = int(values[11])  
+          
+        # 从 CSV 字段构造正确的 TLE 格式  
+        # EPOCH 格式: 2026-04-11T18:40:52.900320  
+        epoch_str = values[2]  
+        year = int(epoch_str[2:4])  # 26  
+        day_of_year = get_day_of_year_from_iso(epoch_str[:10])  
+        frac_day = get_fractional_day(epoch_str[11:])  
+          
+        # TLE Line 1: 1 25544U 98067A   26101.77953719  .00000000  00000-0  00000+0 0  0000  
+        tle_line1 = f"1 {catnum:5d}U {values[1]} {year:02d}{day_of_year:03d}{frac_day:12.8f}  .00000000  00000-0  00000+0 0  0000"  
+          
+        # TLE Line 2: 2 25544  51.6325 268.2674 0006454 301.3432  58.6925 15.48877641392888  
+        tle_line2 = f"2 {catnum:5d} {float(values[5]):8.4f} {float(values[6]):8.4f} {float(values[4]):7.7f} {float(values[7]):8.4f} {float(values[8]):8.4f} {float(values[3]):11.8f}00000"  
+          
+        return name, tle_line1, tle_line2  
+    except Exception as e:  
+        print(f"CSV解析错误: {e}")  
+        return None  
+  
+def get_day_of_year_from_iso(date_str):  
+    """从 ISO 日期获取年积日"""  
+    from datetime import datetime  
+    dt = datetime.strptime(date_str, "%Y-%m-%d")  
+    return dt.timetuple().tm_yday  
+  
+def get_fractional_day(time_str):  
+    """从时间字符串获取日的小数部分"""  
+    h, m, s = time_str.split(':')  
+    seconds = float(s)  
+    total_seconds = int(h) * 3600 + int(m) * 60 + seconds  
+    return total_seconds / 86400.0  
     
 def parse_tle_lines(lines):    
     """解析 TLE 三行格式 - 参考 DataParser.parseTLE() [3](#2-2) """    
