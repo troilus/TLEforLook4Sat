@@ -27,7 +27,7 @@ jobs:
         python .github/scripts/update_satellite_data.py  
           
     - name: Upload artifact  
-      uses: actions/upload-artifact@v3  
+      uses: actions/upload-artifact@v4  
       with:  
         name: satellite-data  
         path: cn.txt
