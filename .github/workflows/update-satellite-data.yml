@@ -1,0 +1,33 @@
+name: Update Satellite Data  
+  
+on:  
+  schedule:  
+    - cron: '0 */4 * * *'  # 每4小时运行一次  
+  workflow_dispatch:  # 手动触发  
+  
+jobs:  
+  update-data:  
+    runs-on: ubuntu-latest  
+      
+    steps:  
+    - name: Checkout code  
+      uses: actions/checkout@v4  
+        
+    - name: Setup Python  
+      uses: actions/setup-python@v4  
+      with:  
+        python-version: '3.11'  
+          
+    - name: Install dependencies  
+      run: |  
+        pip install requests  
+        
+    - name: Download and process satellite data  
+      run: |  
+        python .github/scripts/update_satellite_data.py  
+          
+    - name: Upload artifact  
+      uses: actions/upload-artifact@v3  
+      with:  
+        name: satellite-data  
+        path: cn.txt
