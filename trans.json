@@ -75489,8 +75489,8 @@
     "norad_cat_id": 65815,
     "norad_follow_id": null,
     "status": "active",
-    "updated": "2026-04-13T08:54:03.929494Z",
-    "citation": "https://docs.google.com/document/d/1NWn4CL2xP_k_AvEd2u-zBQQOd9FPCGEzT-fGwmzpVKc/edit?usp=sharing",
+    "updated": "2026-04-13T17:32:12.474411Z",
+    "citation": "https://network.satnogs.org/observations/13808410/ and other obs",
     "service": "Unknown",
     "iaru_coordination": "N/A",
     "iaru_coordination_url": "",
@@ -75498,7 +75498,7 @@
       "urls": []
     },
     "frequency_violation": false,
-    "unconfirmed": true
+    "unconfirmed": false
   },
   {
     "uuid": "6qdQhbQ7Pk2ts7b3d7k4Vc",
