@@ -1,42 +1,40 @@
 #!/usr/bin/env python3
 """
-卫星TLE数据获取和整合脚本（改进版）
-支持多个数据源，CSV格式数据转换为标准TLE
+卫星TLE数据获取和整合脚本（TLE直接合并版）
+直接下载TLE格式数据并合并，无需格式转换
 同时从SatNOGS API获取活跃发射机数据保存为trans.json
 """
 
 import requests
-import csv
 import zipfile
 import io
 import json
-from datetime import datetime
 from collections import OrderedDict
 
 SATELLITE_URLS = {
-    "All": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=csv",
-    "Amateur": "https://celestrak.org/NORAD/elements/gp.php?GROUP=amateur&FORMAT=csv",
-    "Brightest": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=csv",
-    "Cubesat": "https://celestrak.org/NORAD/elements/gp.php?GROUP=cubesat&FORMAT=csv",
-    "Education": "https://celestrak.org/NORAD/elements/gp.php?GROUP=education&FORMAT=csv",
-    "Engineer": "https://celestrak.org/NORAD/elements/gp.php?GROUP=engineering&FORMAT=csv",
-    "Geostationary": "https://celestrak.org/NORAD/elements/gp.php?GROUP=geo&FORMAT=csv",
-    "Globalstar": "https://celestrak.org/NORAD/elements/gp.php?GROUP=globalstar&FORMAT=csv",
-    "GNSS": "https://celestrak.org/NORAD/elements/gp.php?GROUP=gnss&FORMAT=csv",
-    "Intelsat": "https://celestrak.org/NORAD/elements/gp.php?GROUP=intelsat&FORMAT=csv",
-    "Iridium": "https://celestrak.org/NORAD/elements/gp.php?GROUP=iridium-NEXT&FORMAT=csv",
-    "Military": "https://celestrak.org/NORAD/elements/gp.php?GROUP=military&FORMAT=csv",
-    "New": "https://celestrak.org/NORAD/elements/gp.php?GROUP=last-30-days&FORMAT=csv",
-    "OneWeb": "https://celestrak.org/NORAD/elements/gp.php?GROUP=oneweb&FORMAT=csv",
-    "Orbcomm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=orbcomm&FORMAT=csv",
-    "Resource": "https://celestrak.org/NORAD/elements/gp.php?GROUP=resource&FORMAT=csv",
-    "SatNOGS": "https://celestrak.org/NORAD/elements/gp.php?GROUP=satnogs&FORMAT=csv",
-    "Science": "https://celestrak.org/NORAD/elements/gp.php?GROUP=science&FORMAT=csv",
-    "Spire": "https://celestrak.org/NORAD/elements/gp.php?GROUP=spire&FORMAT=csv",
-    "Starlink": "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=csv",
-    "Swarm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=swarm&FORMAT=csv",
-    "Weather": "https://celestrak.org/NORAD/elements/gp.php?GROUP=weather&FORMAT=csv",
-    "X-Comm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=x-comm&FORMAT=csv",
+    "All": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle",
+    "Amateur": "https://celestrak.org/NORAD/elements/gp.php?GROUP=amateur&FORMAT=tle",
+    "Brightest": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+    "Cubesat": "https://celestrak.org/NORAD/elements/gp.php?GROUP=cubesat&FORMAT=tle",
+    "Education": "https://celestrak.org/NORAD/elements/gp.php?GROUP=education&FORMAT=tle",
+    "Engineer": "https://celestrak.org/NORAD/elements/gp.php?GROUP=engineering&FORMAT=tle",
+    "Geostationary": "https://celestrak.org/NORAD/elements/gp.php?GROUP=geo&FORMAT=tle",
+    "Globalstar": "https://celestrak.org/NORAD/elements/gp.php?GROUP=globalstar&FORMAT=tle",
+    "GNSS": "https://celestrak.org/NORAD/elements/gp.php?GROUP=gnss&FORMAT=tle",
+    "Intelsat": "https://celestrak.org/NORAD/elements/gp.php?GROUP=intelsat&FORMAT=tle",
+    "Iridium": "https://celestrak.org/NORAD/elements/gp.php?GROUP=iridium-NEXT&FORMAT=tle",
+    "Military": "https://celestrak.org/NORAD/elements/gp.php?GROUP=military&FORMAT=tle",
+    "New": "https://celestrak.org/NORAD/elements/gp.php?GROUP=last-30-days&FORMAT=tle",
+    "OneWeb": "https://celestrak.org/NORAD/elements/gp.php?GROUP=oneweb&FORMAT=tle",
+    "Orbcomm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=orbcomm&FORMAT=tle",
+    "Resource": "https://celestrak.org/NORAD/elements/gp.php?GROUP=resource&FORMAT=tle",
+    "SatNOGS": "https://celestrak.org/NORAD/elements/gp.php?GROUP=satnogs&FORMAT=tle",
+    "Science": "https://celestrak.org/NORAD/elements/gp.php?GROUP=science&FORMAT=tle",
+    "Spire": "https://celestrak.org/NORAD/elements/gp.php?GROUP=spire&FORMAT=tle",
+    "Starlink": "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle",
+    "Swarm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=swarm&FORMAT=tle",
+    "Weather": "https://celestrak.org/NORAD/elements/gp.php?GROUP=weather&FORMAT=tle",
+    "X-Comm": "https://celestrak.org/NORAD/elements/gp.php?GROUP=x-comm&FORMAT=tle",
     "Amsat": "https://amsat.org/tle/current/nasabare.txt",
     "Classified": "https://www.mmccants.org/tles/classfd.zip",
     "McCants": "https://www.mmccants.org/tles/inttles.zip",
@@ -56,79 +54,79 @@ def fetch_url(url: str, timeout: int = 30) -> str:
         print(f"  错误: 无法获取 {url}: {e}")
         return ""
 
-def iso_to_tle_epoch(epoch_iso: str) -> str:
-    """ISO时间转 TLE EPOCH YYDDD.DDDDDDDD"""
-    dt = datetime.fromisoformat(epoch_iso)
-    year = dt.year % 100
-    day_of_year = dt.timetuple().tm_yday
-    fraction = (dt.hour + dt.minute / 60 + dt.second / 3600) / 24
-    return f"{year:02d}{day_of_year + fraction:012.8f}"
+def fetch_zip_content(url: str) -> str:
+    """下载并解压ZIP文件中的TLE内容"""
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(url, timeout=30, headers=headers)
+        response.raise_for_status()
+        
+        with zipfile.ZipFile(io.BytesIO(response.content)) as z:
+            # 获取第一个txt文件
+            for filename in z.namelist():
+                if filename.endswith('.txt') or filename.endswith('.tle'):
+                    return z.read(filename).decode('utf-8', errors='ignore')
+        return ""
+    except Exception as e:
+        print(f"  错误: 无法获取ZIP {url}: {e}")
+        return ""
 
-def format_tle_scientific(value: float) -> str:
-    """格式化为TLE科学计数法 ±0.00000-0"""
-    if value == 0:
-        return " 00000-0"
-    exponent = int(f"{value:e}".split('e')[1])
-    mantissa = value / (10 ** exponent)
-    mantissa_str = f"{mantissa: .5f}"[1:]  # 去掉前导空格
-    return f"{mantissa_str}{exponent:+d}"
-
-def parse_celestrak_csv_to_tle(content: str) -> dict:
+def parse_tle_content(content: str) -> dict:
+    """解析TLE格式内容，返回 {norad_id: (name, line1, line2)}"""
     tle_data = {}
     lines = content.strip().splitlines()
-    if len(lines) <= 1:
-        return tle_data
-    reader = csv.DictReader(lines)
-    for row in reader:
-        try:
-            norad_id = row.get('NORAD_CAT_ID', '').strip()
-            if not norad_id or norad_id == '0':
-                continue
-            name = row.get('OBJECT_NAME', '').strip()
-            if not name:
-                continue
-
-            # 参数
-            epoch_iso = row.get('EPOCH', '')
-            mean_motion = float(row.get('MEAN_MOTION', 0))
-            eccentricity = float(row.get('ECCENTRICITY', 0))
-            inclination = float(row.get('INCLINATION', 0))
-            ra_of_asc_node = float(row.get('RA_OF_ASC_NODE', 0))
-            arg_of_pericenter = float(row.get('ARG_OF_PERICENTER', 0))
-            mean_anomaly = float(row.get('MEAN_ANOMALY', 0))
-            mean_motion_dot = float(row.get('MEAN_MOTION_DOT', 0))  # 每天
-            bstar = float(row.get('BSTAR', 0))
-
-            # 第1行
-            epoch = iso_to_tle_epoch(epoch_iso)
-            line1 = f"1 {int(norad_id):5d}U {epoch} {format_tle_scientific(mean_motion_dot):>10} {format_tle_scientific(bstar):>8} 0 0"
-            line1 = line1.ljust(69)[:69]
-
-            # 第2行
-            ecc_str = f"{int(eccentricity * 1e7):07d}"  # 去掉小数点，7位
-            line2 = f"2 {int(norad_id):5d} {inclination:8.4f} {ra_of_asc_node:8.4f} {ecc_str} {arg_of_pericenter:8.4f} {mean_anomaly:8.4f} {mean_motion:11.8f}"
-            line2 = line2.ljust(69)[:69]
-
-            tle_data[norad_id] = (name, line1, line2)
-        except Exception as e:
-            print(f"  解析行出错: {e}")
+    
+    # 过滤空行
+    lines = [line.rstrip() for line in lines if line.strip()]
+    
+    i = 0
+    while i < len(lines):
+        # 尝试查找TLE三元组（名称 + 两行数据）
+        if i + 2 < len(lines):
+            name = lines[i].strip()
+            line1 = lines[i+1].strip()
+            line2 = lines[i+2].strip()
+            
+            # 验证是否为TLE格式（第1行以"1 "开头，第2行以"2 "开头）
+            if (line1.startswith('1 ') and line2.startswith('2 ')):
+                # 提取NORAD ID
+                try:
+                    norad_id = line1[2:7].strip()
+                    if norad_id and norad_id not in tle_data:
+                        tle_data[norad_id] = (name, line1, line2)
+                except:
+                    pass
+                i += 3
+            else:
+                i += 1
+        else:
+            i += 1
+    
     return tle_data
 
-def process_celestrak_source(name: str, url: str, all_satellites: dict) -> int:
+def process_tle_source(name: str, url: str, all_satellites: dict) -> int:
     print(f"  正在获取 {name}...")
-    content = fetch_url(url)
+    
+    # 特殊处理ZIP文件
+    if url.endswith('.zip'):
+        content = fetch_zip_content(url)
+    else:
+        content = fetch_url(url)
+    
     if not content:
         return 0
-    satellites = parse_celestrak_csv_to_tle(content)
+    
+    satellites = parse_tle_content(content)
     count = 0
     for norad_id, tle in satellites.items():
         if norad_id not in all_satellites:
             all_satellites[norad_id] = tle
             count += 1
+    
     print(f"    获取到 {len(satellites)} 颗卫星，新增: {count}")
     return len(satellites)
 
-def download_satnogs_data(output_file: str = "trans.json") -> bool:
+def download_satnogs_data(output_file: str = "radio.json") -> bool:
     print(f"\n正在从 SatNOGS API 获取数据...")
     try:
         headers = {'User-Agent': 'Mozilla/5.0'}
@@ -143,19 +141,21 @@ def download_satnogs_data(output_file: str = "trans.json") -> bool:
         print(f"❌ 下载失败: {e}")
         return False
 
-def write_cn_txt(satellites: dict, filename: str = "cn.txt"):
+def write_cn_txt(satellites: dict, filename: str = "tle.txt"):
     with open(filename, 'w', encoding='utf-8') as f:
         for sat_id, tle in satellites.items():
             f.write(f"{tle[0]}\n{tle[1]}\n{tle[2]}\n")
 
 def main():
+    print("开始获取卫星TLE数据...")
     all_satellites = OrderedDict()
+    
     for name, url in SATELLITE_URLS.items():
-        process_celestrak_source(name, url, all_satellites)
-
+        process_tle_source(name, url, all_satellites)
+    
     download_satnogs_data("trans.json")
-    write_cn_txt(all_satellites, "cn.txt")
-    print(f"\n✅ 完成, 共 {len(all_satellites)} 颗卫星, 保存到 cn.txt")
+    write_cn_txt(all_satellites, "tle.txt")
+    print(f"\n✅ 完成，共合并 {len(all_satellites)} 颗卫星（去重后），保存到 tle.txt")
 
 if __name__ == "__main__":
     main()
