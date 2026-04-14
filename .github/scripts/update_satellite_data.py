@@ -153,7 +153,7 @@ def main():
     for name, url in SATELLITE_URLS.items():
         process_tle_source(name, url, all_satellites)
     
-    download_satnogs_data("trans.json")
+    download_satnogs_data("radio.json")
     write_cn_txt(all_satellites, "tle.txt")
     print(f"\n✅ 完成，共合并 {len(all_satellites)} 颗卫星（去重后），保存到 tle.txt")
 
