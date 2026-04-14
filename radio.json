@@ -85837,6 +85837,37 @@
     "unconfirmed": false
   },
   {
+    "uuid": "LdU4cUpRAd3o3DWxRuWtaD",
+    "description": "S-band telemetry",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 2249000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FM",
+    "mode_id": 1,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": null,
+    "sat_id": "ZADI-4461-1712-8089-8336",
+    "norad_cat_id": 67556,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-04T09:19:04.664971Z",
+    "citation": "https://docs.google.com/document/d/1xyPf3lPzSvoa9riYsW3EitNmzLjG3VpmsQ6ZBjSRfxY/edit?usp=sharing",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": []
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
     "uuid": "GCmN6RULea8dAT7Qoat8z2",
     "description": "AstroDev Li-2",
     "alive": true,
@@ -85993,7 +86024,7 @@
   },
   {
     "uuid": "JEQrkDdKYRLP4bTpFjZ8qy",
-    "description": "Mode U - Transmitter",
+    "description": "Mode U - FSK2k4 - Light-1(framing)",
     "alive": true,
     "type": "Transmitter",
     "uplink_low": null,
@@ -86002,8 +86033,8 @@
     "downlink_low": 401500000,
     "downlink_high": null,
     "downlink_drift": null,
-    "mode": "GMSK",
-    "mode_id": 63,
+    "mode": "FSK",
+    "mode_id": 72,
     "uplink_mode": null,
     "invert": false,
     "baud": 2400.0,
@@ -86011,15 +86042,13 @@
     "norad_cat_id": 98337,
     "norad_follow_id": 68629,
     "status": "active",
-    "updated": "2026-04-07T22:09:05.489236Z",
-    "citation": "https://community.libre.space/t/minotaur-iv-stp-s29a-2026-04-07-11-30-utc/14583/25",
+    "updated": "2026-04-14T10:00:18.034148Z",
+    "citation": "https://community.libre.space/t/minotaur-iv-stp-s29a-2026-04-07-11-30-utc/14583/34",
     "service": "Unknown",
     "iaru_coordination": "N/A",
     "iaru_coordination_url": "",
     "itu_notification": {
-      "urls": [
-        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/MAMBO/124545364"
-      ]
+      "urls": []
     },
     "frequency_violation": false,
     "unconfirmed": false
@@ -86436,5 +86465,36 @@
     },
     "frequency_violation": false,
     "unconfirmed": false
+  },
+  {
+    "uuid": "5AYDRZducQrCoN7MDL9A3K",
+    "description": "Mode U - FSK2k4 - Light-1(framing)",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 401500000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FSK",
+    "mode_id": 72,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": 2400.0,
+    "sat_id": "NSEX-0085-3092-1233-5752",
+    "norad_cat_id": 98331,
+    "norad_follow_id": 68632,
+    "status": "active",
+    "updated": "2026-04-14T10:00:25.365813Z",
+    "citation": "https://community.libre.space/t/minotaur-iv-stp-s29a-2026-04-07-11-30-utc/14583/34",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": []
+    },
+    "frequency_violation": false,
+    "unconfirmed": true
   }
 ]
