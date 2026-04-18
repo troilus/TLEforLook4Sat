@@ -76705,7 +76705,7 @@
     "baud": 500.0,
     "sat_id": "LPUU-9270-2724-3685-4470",
     "norad_cat_id": 98519,
-    "norad_follow_id": null,
+    "norad_follow_id": 68420,
     "status": "active",
     "updated": "2026-03-30T02:15:25.018695Z",
     "citation": "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/VEGAFLY/125545209",
