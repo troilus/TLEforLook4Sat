@@ -83900,6 +83900,39 @@
     "unconfirmed": false
   },
   {
+    "uuid": "hpmtYLkmsHGUFaGdu2LW4M",
+    "description": "Mode U - FSK4k8 - Transmitter",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 437075000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "GMSK",
+    "mode_id": 63,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": 4800.0,
+    "sat_id": "HWUY-3165-6126-0472-2513",
+    "norad_cat_id": 98381,
+    "norad_follow_id": 68431,
+    "status": "active",
+    "updated": "2026-04-20T09:52:21.795069Z",
+    "citation": "Confirmation from the team",
+    "service": "Unknown",
+    "iaru_coordination": "IARU Coordinated",
+    "iaru_coordination_url": "https://iaru.amsat-uk.org/finished_detail.php?serialnum=909",
+    "itu_notification": {
+      "urls": [
+        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/DISCO2/123545079"
+      ]
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
     "uuid": "mjS4ZR6Mt2KdiSpES6vy94",
     "description": "SSDV",
     "alive": true,
