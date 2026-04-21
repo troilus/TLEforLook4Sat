@@ -53532,6 +53532,37 @@
     "unconfirmed": false
   },
   {
+    "uuid": "9SuNQFQ9wDRchejVGpawUi",
+    "description": "S-band telemetry",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 2240000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FM",
+    "mode_id": 1,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": null,
+    "sat_id": "QMTG-4209-6674-7825-1293",
+    "norad_cat_id": 60524,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-21T18:49:03.741203Z",
+    "citation": "https://docs.google.com/document/d/1Vk6lvce9d7kTe3cEBgdzXahcw8Bh1KwCJW5Ih_qJeb0/edit?usp=sharing",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": []
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
     "uuid": "nGqsWMinc3xjFangwRQCKy",
     "description": "S-band telemetry",
     "alive": true,
@@ -57224,6 +57255,37 @@
       "urls": []
     },
     "frequency_violation": true,
+    "unconfirmed": false
+  },
+  {
+    "uuid": "Vj95HZBEAFamGpGK7rXspG",
+    "description": "S-band telemetry",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 2235000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FM",
+    "mode_id": 1,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": null,
+    "sat_id": "SXNP-3240-4340-9235-8383",
+    "norad_cat_id": 61046,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-21T17:49:21.699278Z",
+    "citation": "https://docs.google.com/document/d/118MyJNwWvbS2QXQoUc6jolmn098aZeR768sJnter7c4/edit?usp=sharing",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": []
+    },
+    "frequency_violation": false,
     "unconfirmed": false
   },
   {
