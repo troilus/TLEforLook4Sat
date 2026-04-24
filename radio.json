@@ -87320,5 +87320,137 @@
     },
     "frequency_violation": false,
     "unconfirmed": false
+  },
+  {
+    "uuid": "SeDde5oDd4eQYH8B9Hyvzz",
+    "description": "S-Band Transmitter",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 2218000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FSK AX.100 Mode 5",
+    "mode_id": 84,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": 38400.0,
+    "sat_id": "YEEE-7340-7726-4018-8919",
+    "norad_cat_id": 98322,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-24T11:52:05.601448Z",
+    "citation": "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325",
+    "service": "Space Operation",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": [
+        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325"
+      ]
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
+    "uuid": "PqFtJtwVoKeVsU5ievtDjS",
+    "description": "UHF Transmitter",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 401000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FM",
+    "mode_id": 1,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": null,
+    "sat_id": "YEEE-7340-7726-4018-8919",
+    "norad_cat_id": 98322,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-24T11:53:48.774369Z",
+    "citation": "Adding default mode",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": [
+        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325"
+      ]
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
+    "uuid": "7bEZSVHMfB7NaaSdPMfx4S",
+    "description": "S-Band Transmitter",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 2220000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FSK AX.100 Mode 5",
+    "mode_id": 84,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": 38400.0,
+    "sat_id": "REYA-7757-1619-4009-9971",
+    "norad_cat_id": 98321,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-24T11:52:41.366497Z",
+    "citation": "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": [
+        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325"
+      ]
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
+  },
+  {
+    "uuid": "SPU6VGSrTGEtgAETBzYZ4X",
+    "description": "UHF Transmitter",
+    "alive": true,
+    "type": "Transmitter",
+    "uplink_low": null,
+    "uplink_high": null,
+    "uplink_drift": null,
+    "downlink_low": 401000000,
+    "downlink_high": null,
+    "downlink_drift": null,
+    "mode": "FM",
+    "mode_id": 1,
+    "uplink_mode": null,
+    "invert": false,
+    "baud": null,
+    "sat_id": "REYA-7757-1619-4009-9971",
+    "norad_cat_id": 98321,
+    "norad_follow_id": null,
+    "status": "active",
+    "updated": "2026-04-24T11:54:08.046430Z",
+    "citation": "Adding default mode",
+    "service": "Unknown",
+    "iaru_coordination": "N/A",
+    "iaru_coordination_url": "",
+    "itu_notification": {
+      "urls": [
+        "https://www.itu.int/itu-r/space/apps/public/spaceexplorer/networks-explorer/space-stations/dashboard/non-plans/NULINK/125545325"
+      ]
+    },
+    "frequency_violation": false,
+    "unconfirmed": false
   }
 ]
