@@ -67839,37 +67839,6 @@
     "unconfirmed": false
   },
   {
-    "uuid": "nNmtwrE33oc56G3frRbT9m",
-    "description": "Mode U - FSK200",
-    "alive": true,
-    "type": "Transmitter",
-    "uplink_low": null,
-    "uplink_high": null,
-    "uplink_drift": null,
-    "downlink_low": 437780000,
-    "downlink_high": null,
-    "downlink_drift": null,
-    "mode": "FSK",
-    "mode_id": 72,
-    "uplink_mode": null,
-    "invert": false,
-    "baud": 200.0,
-    "sat_id": "ZMUU-1298-3682-9426-1829",
-    "norad_cat_id": 63490,
-    "norad_follow_id": null,
-    "status": "active",
-    "updated": "2025-03-14T09:43:13.282047Z",
-    "citation": "Satellite Team",
-    "service": "Unknown",
-    "iaru_coordination": "IARU Uncoordinated",
-    "iaru_coordination_url": "",
-    "itu_notification": {
-      "urls": []
-    },
-    "frequency_violation": true,
-    "unconfirmed": false
-  },
-  {
     "uuid": "2GuRxhMVqozy2mtJrjdnrG",
     "description": "Mode S - Transmitter",
     "alive": true,
